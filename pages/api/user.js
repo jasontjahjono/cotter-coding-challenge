@@ -17,7 +17,7 @@ const getUser = async (req, res) => {
   }
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");
-  res.json({ name: "Jason", ID: "123456", role: "admin" });
+  res.json({ name: "Jason", ID: "123456", role: "admin" }); //customize
 };
 
 export default getUser;

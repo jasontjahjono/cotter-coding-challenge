@@ -1,22 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Cotter from "cotter";
-import API_KEY_ID from "../ApiKey";
+import Link from "next/link";
+import config from "../config/cotter";
 
 export default function IndexPage() {
+  const [twitterHandle, setTwitterHandle] = useState("");
+  console.log(twitterHandle);
   useEffect(() => {
-    const cotter = new Cotter(API_KEY_ID);
+    const cotter = new Cotter(config);
     cotter
       .signInWithLink()
       .showEmailForm()
-      .then((resp) => console.log(resp))
+      .then((resp) => setTwitterHandle(resp.username))
       .catch((err) => console.log(err));
   }, []);
 
   return (
-    <div>
+    <div className="main">
       <div className="navigation">
         <a href="/">Login</a>
-        <a href="/profile">Profile</a>
+        <Link href={`/profile?username=${twitterHandle}`}>
+          <a>Profile</a>
+        </Link>
       </div>
       <div className="container flex-center">
         <div className="title">Login With Cotter</div>
