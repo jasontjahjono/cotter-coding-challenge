@@ -1,21 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
 import axios from "axios";
 import Cotter from "cotter";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Fab from "@material-ui/core/Fab";
 import { UserContext } from "../contexts/UserContext";
-import Navbar from "../components/Navbar";
 import config from "../config/cotter";
 
 export default function ProfilePage() {
-  //useRouter() to get the page query
-  const router = useRouter();
   //takes Context from UserContext
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, twitterHandle } = useContext(UserContext);
   //the data that is stored
   const [name, setName] = useState("");
-  const [twitterHandle, setTwitterHandle] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [bannerUrl, setBannerUrl] = useState("");
   const [followers, setFollowers] = useState("");
@@ -39,11 +34,10 @@ export default function ProfilePage() {
           //if the access token is valid, send a get request to Twitter API
           if (resp.status === 200) {
             axios
-              .get(`http://localhost:3005/user/${router.query.username}`)
+              .get(`http://localhost:3005/user/${twitterHandle}`)
               .then((res) => {
                 //sets all the useful data from the response received from Twitter API
                 setName(res.data.name);
-                setTwitterHandle(res.data.screen_name);
                 setImageUrl(
                   res.data.profile_image_url.replace("normal", "bigger")
                 );
@@ -72,7 +66,6 @@ export default function ProfilePage() {
   }, []);
   return (
     <div>
-      <Navbar twitterHandle={twitterHandle} />
       {/* If the user is logged in, display the data
           else, deny access to the data */}
       {isLoggedIn ? (

@@ -2,14 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import router from "next/router";
 import Cotter from "cotter";
 import { UserContext } from "../contexts/UserContext";
-import Navbar from "../components/Navbar";
 import config from "../config/cotter";
 
 export default function IndexPage() {
   //Takes Context from UserContext
-  const { setLogin } = useContext(UserContext);
-  //state: twitterHandle
-  const [twitterHandle, setTwitterHandle] = useState("");
+  const { setLogin, setTwitterHandle } = useContext(UserContext);
 
   //In first render, show cotter login form
   useEffect(() => {
@@ -22,20 +19,17 @@ export default function IndexPage() {
         //and set login to true, then redirects to the profile page.
         setTwitterHandle(resp.username);
         setLogin(true);
-        router.push(`/profile?username=${resp.username}`);
+        router.push(`/profile`);
       })
       //else, log the error.
       .catch((err) => console.log(err));
   }, []);
 
   return (
-    <div className="main">
-      <Navbar twitterHandle={twitterHandle} />
-      <div className="container flex-center">
-        <div className="title">Login With Cotter</div>
-        {/* Cotter Login Form Div */}
-        <div id="cotter-form-container" style={{ width: 300, height: 250 }} />
-      </div>
+    <div className="container flex-center">
+      <div className="title">Login With Cotter</div>
+      {/* Cotter Login Form Div */}
+      <div id="cotter-form-container" style={{ width: 300, height: 250 }} />
     </div>
   );
 }
