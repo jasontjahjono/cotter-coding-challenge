@@ -1,28 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
+import router from "next/router";
 import Cotter from "cotter";
-import Link from "next/link";
+import Navbar from "../components/Navbar";
 import config from "../config/cotter";
 
 export default function IndexPage() {
+  const { setLogin } = useContext(UserContext);
   const [twitterHandle, setTwitterHandle] = useState("");
-  console.log(twitterHandle);
   useEffect(() => {
     const cotter = new Cotter(config);
     cotter
       .signInWithLink()
       .showEmailForm()
-      .then((resp) => setTwitterHandle(resp.username))
+      .then(async (resp) => {
+        setTwitterHandle(resp.username);
+        setLogin(true);
+        router.push(`/profile?username=${resp.username}`);
+      })
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <div className="main">
-      <div className="navigation">
-        <a href="/">Login</a>
-        <Link href={`/profile?username=${twitterHandle}`}>
-          <a>Profile</a>
-        </Link>
-      </div>
+      <Navbar twitterHandle={twitterHandle} />
       <div className="container flex-center">
         <div className="title">Login With Cotter</div>
         <div id="cotter-form-container" style={{ width: 300, height: 250 }} />

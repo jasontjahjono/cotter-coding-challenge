@@ -10,10 +10,22 @@
   padding: 40px;
   width: 400px;
   height: 400px;
-  /* min-height: calc(100vh - 50px); */
   margin: 100px auto;
   box-sizing: border-box;
   background-color: white;
+}
+
+.profile-container {
+  width: 400px;
+  height: 400px;
+  margin: 100px auto;
+  box-sizing: border-box;
+  background-color: white;
+  position: relative;
+}
+
+.denied-container {
+  margin-top: 50px;
 }
 
 body,
@@ -82,6 +94,41 @@ pre {
 .subtitle {
   font-weight: 700;
   font-size: 18px;
+}
+
+.errorText {
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+.banner-image {
+  width: 400px;
+}
+
+.profile-image {
+  position: absolute;
+  transform: scale(1.2);
+  top: 90px;
+  left: 163.5px;
+  border-radius: 50%;
+  box-shadow: 0px 4px 10px -5px rgba(0, 0, 0, 0.75);
+}
+
+.profile-name {
+  margin-top: 50px;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.description {
+  font-size: 15px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.description span {
+  font-weight: 600;
 }
 
 .navigation {
