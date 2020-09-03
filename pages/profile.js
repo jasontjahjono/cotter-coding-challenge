@@ -1,26 +1,34 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
-import { UserContext } from "../contexts/UserContext";
-import Navbar from "../components/Navbar";
 import axios from "axios";
 import Cotter from "cotter";
-import config from "../config/cotter";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Fab from "@material-ui/core/Fab";
+import { UserContext } from "../contexts/UserContext";
+import Navbar from "../components/Navbar";
+import config from "../config/cotter";
 
 export default function ProfilePage() {
-  const route = useRouter();
+  //useRouter() to get the page query
+  const router = useRouter();
+  //takes Context from UserContext
   const { isLoggedIn } = useContext(UserContext);
+  //the data that is stored
   const [name, setName] = useState("");
   const [twitterHandle, setTwitterHandle] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [bannerUrl, setBannerUrl] = useState("");
   const [followers, setFollowers] = useState("");
+
+  //getProfile function validates the token, then gets the data from Twitter API.
   const getProfile = async () => {
     const cotter = new Cotter(config);
+    //use Cotter token handler to get access token
     const accessToken = await cotter.tokenHandler.getAccessToken();
     const token = accessToken ? accessToken.token : null;
     try {
+      //sends a get request to api/user, throws error if there is no access
+      //token or if it is invalid, and continues if access token is valid.
       axios
         .get("/api/user", {
           headers: {
@@ -28,10 +36,12 @@ export default function ProfilePage() {
           },
         })
         .then((resp) => {
+          //if the access token is valid, send a get request to Twitter API
           if (resp.status === 200) {
             axios
-              .get(`http://localhost:3005/user/${route.query.username}`)
+              .get(`http://localhost:3005/user/${router.query.username}`)
               .then((res) => {
+                //sets all the useful data from the response received from Twitter API
                 setName(res.data.name);
                 setTwitterHandle(res.data.screen_name);
                 setImageUrl(
@@ -40,25 +50,33 @@ export default function ProfilePage() {
                 setBannerUrl(res.data.profile_banner_url);
                 setFollowers(res.data.followers_count);
               })
+              //else, log the error.
               .catch((e) => console.log(e));
           }
         });
     } catch (e) {
+      //log the error
       console.log(e);
     }
   };
+  //formatFollowers function formats the number of followers to "K" and "M" base.
   const formatFollowers = () => {
     if (followers < 1000) return followers;
     else if (followers < 1000000) return (followers / 1000).toFixed(1) + "K";
     else return (followers / 1000000).toFixed(1) + "M";
   };
+
+  //The first render will getProfile() if the user is logged in.
   useEffect(() => {
     isLoggedIn && getProfile();
   }, []);
   return (
     <div>
       <Navbar twitterHandle={twitterHandle} />
+      {/* If the user is logged in, display the data
+          else, deny access to the data */}
       {isLoggedIn ? (
+        // Access Granted
         <div className="profile-container">
           <img src={bannerUrl} className="banner-image" />
           <img src={imageUrl} className="profile-image" />
@@ -69,6 +87,7 @@ export default function ProfilePage() {
           </p>
         </div>
       ) : (
+        // Access Denied
         <div className="flex-center denied-container">
           <Fab size="large" disabled>
             <LockOutlinedIcon fontSize="large" />

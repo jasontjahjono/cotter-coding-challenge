@@ -23,7 +23,7 @@ const getUser = async (req, res) => {
   //Else, return Success Response
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");
-  res.end("success"); //customize
+  res.end("success");
 };
 
 export default getUser;

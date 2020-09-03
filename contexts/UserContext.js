@@ -8,14 +8,14 @@ export const UserContext = createContext();
 
 //PROVIDER
 export function UserProvider(props) {
-  //2 states: isLoggedIn and Twitter Handle
+  //3 Shared Items: isLoggedIn, setLogin, and logOut
   const [isLoggedIn, setLogin] = useState(false);
 
   const logOut = async () => {
     const cotter = new Cotter(config);
-    await cotter.logOut();
-    setLogin(false);
-    router.push("/");
+    await cotter.logOut(); //use cotter logout method
+    setLogin(false); //set isLoggedIn to false
+    router.push("/"); //redirect to home
   };
   return (
     //Wrap the context around every children

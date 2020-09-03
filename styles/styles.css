@@ -1,31 +1,5 @@
-.flex-center {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.container {
-  display: flex;
-  padding: 40px;
+.banner-image {
   width: 400px;
-  height: 400px;
-  margin: 100px auto;
-  box-sizing: border-box;
-  background-color: white;
-}
-
-.profile-container {
-  width: 400px;
-  height: 400px;
-  margin: 100px auto;
-  box-sizing: border-box;
-  background-color: white;
-  position: relative;
-}
-
-.denied-container {
-  margin-top: 50px;
 }
 
 body,
@@ -42,32 +16,39 @@ body,
   overflow: hidden;
 }
 
-.title {
-  font-weight: 700;
-  font-size: 25px;
-  padding-bottom: 20px;
-}
-
-pre {
-  background-color: #2e2e2e;
-  padding: 10px;
-  border-radius: 4px;
-  color: white;
-  overflow: auto;
+.container {
+  display: flex;
+  padding: 40px;
   width: 400px;
+  height: 400px;
+  margin: 100px auto;
   box-sizing: border-box;
+  background-color: white;
 }
 
-.logout-button {
-  border-radius: 5px;
-  padding: 10px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  cursor: pointer;
+.denied-container {
+  margin-top: 50px;
 }
 
-.logout-button:hover {
-  border: 1px solid rgba(0, 0, 0, 0.5);
+.description {
+  font-size: 15px;
+  font-weight: 300;
+  text-align: center;
+}
+.description span {
+  font-weight: 600;
+}
+
+.errorText {
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+.flex-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .get-profile-container {
@@ -84,51 +65,25 @@ pre {
   cursor: pointer;
   box-sizing: border-box;
 }
+
 .get-profile-container:hover {
   border: 1px solid #8650faff;
 }
+
 .get-profile-container:hover .subtitle {
   color: #8650faff;
 }
 
-.subtitle {
-  font-weight: 700;
-  font-size: 18px;
+.logout-button {
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  cursor: pointer;
 }
 
-.errorText {
-  font-size: 25px;
-  margin-bottom: 10px;
-}
-
-.banner-image {
-  width: 400px;
-}
-
-.profile-image {
-  position: absolute;
-  transform: scale(1.2);
-  top: 90px;
-  left: 163.5px;
-  border-radius: 50%;
-  box-shadow: 0px 4px 10px -5px rgba(0, 0, 0, 0.75);
-}
-
-.profile-name {
-  margin-top: 50px;
-  font-size: 30px;
-  font-weight: 700;
-  text-align: center;
-}
-
-.description {
-  font-size: 15px;
-  font-weight: 300;
-  text-align: center;
-}
-
-.description span {
-  font-weight: 600;
+.logout-button:hover {
+  border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .navigation {
@@ -156,4 +111,50 @@ pre {
 .navigation div:hover {
   text-decoration: none;
   background-color: #4c5475;
+}
+
+pre {
+  background-color: #2e2e2e;
+  padding: 10px;
+  border-radius: 4px;
+  color: white;
+  overflow: auto;
+  width: 400px;
+  box-sizing: border-box;
+}
+
+.profile-container {
+  width: 400px;
+  height: 400px;
+  margin: 100px auto;
+  box-sizing: border-box;
+  background-color: white;
+  position: relative;
+}
+
+.profile-image {
+  position: absolute;
+  transform: scale(1.2);
+  top: 90px;
+  left: 163.5px;
+  border-radius: 50%;
+  box-shadow: 0px 4px 10px -5px rgba(0, 0, 0, 0.75);
+}
+
+.profile-name {
+  margin-top: 50px;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.subtitle {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 25px;
+  padding-bottom: 20px;
 }
